@@ -14,9 +14,13 @@ module Pivotalcli
 
     desc "get_story_info story_id", "get_story_info"
     def get_story_info(story_id)
-      story = client.story(story_id)
-      puts story.name
-      puts story.url
+      begin
+        story = client.story(story_id)
+        puts story.name
+        puts story.url
+      rescue => e
+        STDERR.puts "#{story_id} is not found."
+      end
     end
 
   private
