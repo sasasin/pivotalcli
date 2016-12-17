@@ -1,4 +1,7 @@
 require 'thor'
+require 'tracker_api'
+require 'pp'
+require 'yaml'
 
 module Pivotalcli
   class CLI < Thor
@@ -7,6 +10,13 @@ module Pivotalcli
       client.projects.each do |project|
         puts "#{project.id}, #{project.name}"
       end
+    end
+
+    desc "get_story_info story_id", "get_story_info"
+    def get_story_info(story_id)
+      story = client.story(story_id)
+      puts story.name
+      puts story.url
     end
 
   private
